@@ -18,7 +18,7 @@ path_to_model = "mobilenet_v1_1.0_224_quant.tflite"
 path_to_image = "images/bird.jpg"
 
 # confidence threshold at which you want to be notified of a new bird
-prob_threshold_bird = 0.25
+prob_threshold_bird = 0.5
 prob_threshold_obj = 0.25
 
 # Define email sender:
