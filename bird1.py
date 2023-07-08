@@ -45,7 +45,7 @@ def take_picture():
     camera.start()
     time.sleep(2)  # give the camera 2 seconds to adjust light balance
     camera.capture_file(path_to_image)
-    # camera.stop_preview()
+    camera.stop_preview()
     camera.stop()
 
 def check_for_object():
