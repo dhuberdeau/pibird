@@ -7,7 +7,7 @@ from email1 import Emailer
 
 # init Raspberry Pi Camera
 camera = Picamera2()
-config = camera.create_preview_configuration({"size": (224, 224)})
+config = camera.create_still_configuration({"size": (224, 224)})
 camera.configure(config)
 
 # specify paths to local file assets
@@ -29,11 +29,11 @@ sendTo = 'birdeye@myyahoo.com'
 def main():
     """ Take a picture and see if a bird is in it """
     take_picture()
-    
+
     obj_check = check_for_object()
-    
+
     bird_check = check_for_bird()
-    
+
     if bird_check[0]:
         send_email(obj_check[1] + ' ' + bird_check[1])
 
@@ -41,11 +41,11 @@ def main():
 
 def take_picture():
     """ Take a picture and save it """
-    camera.start_preview(Preview.QTGL)
+    camera.start_preview(Preview.NULL)
     camera.start()
     time.sleep(2)  # give the camera 2 seconds to adjust light balance
     camera.capture_file(path_to_image)
-    camera.stop_preview()
+    # camera.stop_preview()
     camera.stop()
 
 def check_for_object():
@@ -60,7 +60,7 @@ def check_for_object():
     label_id, prob = results[0]
     #print("bird: " + labels[label_id])
     #print("prob: " + str(prob))
-        
+
     present = False
     bird = ''
 
@@ -70,7 +70,7 @@ def check_for_object():
         prob_pct = str(round(prob * 100, 1)) + "%"
         print("bird: " + bird)
         present = True
-        
+
     return (present, bird)
 
 def check_for_bird():
@@ -85,21 +85,21 @@ def check_for_bird():
     label_id, prob = results[0]
     #print("bird: " + labels[label_id])
     #print("prob: " + str(prob))
-    
+
     present = False
     bird = ''
-    
+
     if prob > prob_threshold_obj:
         bird = labels[label_id]
         bird = bird[bird.find(",") + 1:]
         prob_pct = str(round(prob * 100, 1)) + "%"
         print("bird: " + bird)
         present = True
-        
+
     return (present, bird)
 
 def send_email(label_item):
-    
+
     emailSubject = "object detected: " + label_item
     emailContent = "An object has been detected: " + time.ctime()
     sender.sendmail(sendTo, emailSubject, emailContent, path_to_image)
