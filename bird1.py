@@ -20,7 +20,7 @@ path_to_image_classifier = "images/bird.jpg"
 path_to_image_emailer = "images/bird_hres.jpg"
 
 # confidence threshold at which you want to be notified of a new bird
-prob_threshold_bird = 0.9
+prob_threshold_bird = 0.85
 prob_threshold_obj = 0.5
 
 # Define email sender:
