@@ -102,13 +102,13 @@ def check_for_object():
     object = ''
 
     if prob > prob_threshold_obj:
-        bird = labels[label_id]
-        bird = bird[bird.find(",") + 1:]
+        object = labels[label_id]
+        object = object[object.find(",") + 1:]
         prob_pct = str(round(prob * 100, 1)) + "%"
         print("object: " + object)
         present = True
 
-    return (present, bird)
+    return (present, object)
 
 def send_email(label_item):
 
