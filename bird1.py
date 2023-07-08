@@ -67,7 +67,7 @@ def check_for_bird():
     interpreter.allocate_tensors()
     _, height, width, _ = interpreter.get_input_details()[0]['shape']
 
-    image = Image.open(path_to_image)
+    image = Image.open(path_to_image_classifier)
     results = classify_image(interpreter, image, top_k = 5)
     label_id, prob = results[0]
     #print("bird: " + labels[label_id])
@@ -92,7 +92,7 @@ def check_for_object():
     interpreter.allocate_tensors()
     _, height, width, _ = interpreter.get_input_details()[0]['shape']
 
-    image = Image.open(path_to_image)
+    image = Image.open(path_to_image_classifier)
     results = classify_image(interpreter, image, top_k = 5)
     label_id, prob = results[0]
     #print("bird: " + labels[label_id])
