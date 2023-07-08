@@ -20,7 +20,7 @@ path_to_image_classifier = "images/bird.jpg"
 path_to_image_emailer = "images/bird_hres.jpg"
 
 # confidence threshold at which you want to be notified of a new bird
-prob_threshold_bird = 0.81
+prob_threshold_bird = 0.7
 prob_threshold_obj = 0.5
 
 # Define email sender:
@@ -35,7 +35,8 @@ def main():
     obj_check = check_for_object()
     bird_check = check_for_bird()
 
-    if bird_check[0]:
+    if bird_check[0] and bird_check[1]!="Ardenna creatopus":
+        # Ardenna creatopus (sea gull) has high false positive
         send_email(obj_check[1] + ' ' + bird_check[1])
 
     time.sleep(5)  # only check for birds every few seconds
