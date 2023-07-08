@@ -1,21 +1,24 @@
-import board
-import digitalio
+# ~ import board
+# ~ import digitalio
 import time
 import numpy as np
-import picamera
-from PIL import Image
+from picamera2 import Picamera2, Preview
+# ~ from PIL import Image
 from tflite_runtime.interpreter import Interpreter
-import json  # optional - for debugging json payloads
-import notecard
-from periphery import I2C
-import keys
+# ~ import json  # optional - for debugging json payloads
+# ~ import notecard
+# ~ from periphery import I2C
+# ~ import keys
 
 # init PIR motion sensor
-pir_sensor = digitalio.DigitalInOut(board.D18)
-pir_sensor.direction = digitalio.Direction.INPUT
+# ~ pir_sensor = digitalio.DigitalInOut(board.D18)
+# ~ pir_sensor.direction = digitalio.Direction.INPUT
 
 # init Raspberry Pi Camera
-camera = picamera.PiCamera()
+picam2 = Picamera2()
+camera_config = picam2.create_preview_configuration()
+picam2.configure(camera_config)
+# ~ camera = picamera.PiCamera()
 camera.resolution = (224, 224)  # ML model expects 224x224 image
 
 # init the Notecard for cellular (more info at blues.io)
@@ -40,7 +43,7 @@ path_to_model = "birds-model.tflite"
 path_to_image = "images/bird.jpg"
 
 # confidence threshold at which you want to be notified of a new bird
-prob_threshold = 0.4
+prob_threshold = 0.4Ok, ikok, 
 
 
 def main():
